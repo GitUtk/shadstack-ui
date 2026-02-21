@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Fix for overriding ui.min.css flex block on desktop */
+@media (min-width: 768px) {
+    .md-hide-safe {
+        display: none !important;
+    }
+}
+
+/* Fix flex child shrinking text wrap for code blocks */
+.code-scroll-fix {
+    min-width: 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Scale down the entire UI to reduce the zoomed-in look */
+html {
+    font-size: 14px;
+}
+
+/* Scrollbar hiding utilities */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
