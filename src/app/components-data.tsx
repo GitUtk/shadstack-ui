@@ -783,20 +783,163 @@ export const componentsData = [
     },
     {
         id: "tooltip",
-        label: "Tooltip",
+        label: "Tooltip / Hover Card",
         description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
         demo: (
-            <div className="tooltip-group relative inline-block">
-                <button className="btn btn-outline">Hover Me</button>
-                <div className="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-[var(--text-color)] text-[var(--bg-color)] text-xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap">
-                    Add to library
+            <div className="relative inline-block group" data-theme="dark">
+                <span className="cursor-pointer font-medium hover:underline underline-offset-4 text-sm px-1">Hover Here</span>
+                <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 w-72 p-4 bg-[var(--bg-color)] text-[var(--text-color)] border border-[var(--border-color)] shadow-md rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 text-left cursor-default pointer-events-none group-hover:pointer-events-auto">
+                    <h4 className="text-sm font-semibold mb-1">@nextjs</h4>
+                    <p className="text-sm opacity-90 leading-relaxed mb-3">
+                        The React Framework – created and maintained by @vercel.
+                    </p>
+                    <div className="flex items-center text-xs text-[var(--muted-fg)]">
+                        <span>Joined December 2021</span>
+                    </div>
                 </div>
             </div>
         ),
-        code: `<div class="tooltip-group">
-  <button class="btn">Hover</button>
-  <div class="tooltip">Tooltip Hint</div>
+        code: `<div class="relative inline-block group">
+  <span class="hover:underline cursor-pointer">Hover Here</span>
+  <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 w-72 p-4 bg-[var(--bg-color)] text-[var(--text-color)] border border-[var(--border-color)] shadow-md rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+    <h4 class="text-sm font-semibold mb-1">@nextjs</h4>
+    <p class="text-sm opacity-90 leading-relaxed mb-3">The React Framework...</p>
+    <div class="text-xs text-[var(--muted-fg)]">Joined December 2021</div>
+  </div>
 </div>`
+    },
+    {
+        id: "sidebar",
+        label: "Sidebar",
+        description: "A composable, themeable and customizable sidebar component.",
+        demo: (
+            <div className="flex h-[500px] w-full max-w-sm border border-[var(--border-color)] overflow-hidden rounded-md relative">
+                <div className="sidebar bg-[var(--bg-color)] shadow-xl drop-shadow-lg !min-h-full">
+                    <div className="sidebar-header">
+                        <ul className="sidebar-menu">
+                            <li className="sidebar-menu-item">
+                                <button className="sidebar-menu-button size-lg hover:bg-[var(--accent)] hover:text-[var(--accent-fg)]">
+                                    <div className="w-8 h-8 rounded-md bg-[#2563eb] flex items-center justify-center text-white shrink-0">
+                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5C3.63401 0.5 0.5 3.63401 0.5 7.5C0.5 11.366 3.63401 14.5 7.5 14.5C11.366 14.5 14.5 11.366 14.5 7.5C14.5 3.63401 11.366 0.5 7.5 0.5ZM1.5 7.5C1.5 4.18629 4.18629 1.5 7.5 1.5C10.8137 1.5 13.5 4.18629 13.5 7.5C13.5 10.8137 10.8137 13.5 7.5 13.5C4.18629 13.5 1.5 10.8137 1.5 7.5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
+                                    </div>
+                                    <div className="flex flex-col gap-0.5 leading-none px-1 overflow-hidden" style={{ flex: 1 }}>
+                                        <span className="font-semibold text-sm truncate">Acme Inc</span>
+                                        <span className="text-xs text-[var(--muted-fg)] truncate opacity-70">Enterprise</span>
+                                    </div>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 opacity-50 ml-auto"><path d="m7 15 5 5 5-5" /><path d="m7 9 5-5 5 5" /></svg>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="sidebar-content">
+                        <div className="sidebar-group">
+                            <ul className="sidebar-menu">
+                                <li className="sidebar-menu-item">
+                                    <button className="sidebar-menu-button relative overflow-hidden group">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 group-hover:scale-105 transition-transform"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                                        <span className="font-medium">Documentation</span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 opacity-50 ml-auto"><path d="m9 18 6-6-6-6" /></svg>
+                                    </button>
+                                </li>
+                                <li className="sidebar-menu-item">
+                                    <button className="sidebar-menu-button relative overflow-hidden group">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 group-hover:scale-105 transition-transform"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                        <span className="font-medium">Settings</span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 opacity-50 ml-auto"><path d="m9 18 6-6-6-6" /></svg>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="sidebar-group">
+                            <div className="sidebar-group-label">Projects</div>
+                            <ul className="sidebar-menu">
+                                <li className="sidebar-menu-item">
+                                    <button className="sidebar-menu-button relative overflow-hidden group">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 group-hover:scale-105 transition-transform"><path d="M4 8h16"></path><path d="M4 16h16"></path><path d="M8 4v16"></path><path d="M16 4v16"></path></svg>
+                                        <span className="font-medium">Design Engineering</span>
+                                    </button>
+                                </li>
+                                <li className="sidebar-menu-item">
+                                    <button className="sidebar-menu-button relative overflow-hidden group">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 group-hover:scale-105 transition-transform"><path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path><path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path></svg>
+                                        <span className="font-medium">Sales & Marketing</span>
+                                    </button>
+                                </li>
+                                <li className="sidebar-menu-item">
+                                    <button className="sidebar-menu-button relative overflow-hidden group">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 group-hover:scale-105 transition-transform"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                                        <span className="font-medium">Travel</span>
+                                    </button>
+                                </li>
+                                <li className="sidebar-menu-item">
+                                    <button className="sidebar-menu-button relative overflow-hidden group">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1 group-hover:scale-105 transition-transform"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        <span className="font-medium">More</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="sidebar-footer">
+                        <ul className="sidebar-menu">
+                            <li className="sidebar-menu-item">
+                                <button className="sidebar-menu-button size-lg hover:bg-[var(--accent)] hover:text-[var(--accent-fg)]">
+                                    <div className="w-8 h-8 rounded-md bg-[var(--border-color)] flex items-center justify-center shrink-0 overflow-hidden">
+                                        <img src="https://github.com/shadcn.png" alt="@shadcn" className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="flex flex-col gap-0.5 leading-none px-1 overflow-hidden" style={{ flex: 1 }}>
+                                        <span className="font-semibold text-sm truncate">shadcn</span>
+                                        <span className="text-xs text-[var(--muted-fg)] truncate opacity-70">m@example.com</span>
+                                    </div>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 opacity-50 ml-auto"><path d="m7 15 5 5 5-5" /><path d="m7 9 5-5 5 5" /></svg>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        ),
+        code: `<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-menu">
+      <div class="sidebar-menu-item">
+        <button class="sidebar-menu-button size-lg">
+          <div class="avatar">...</div>
+          <div class="flex flex-col">...</div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-content">
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Projects</div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item">
+          <button class="sidebar-menu-button">
+            <svg><!-- Icon --></svg>
+            <span>Design Engineering</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="sidebar-footer">...</div>
+</div>`
+    },
+    {
+        id: "spinner",
+        label: "Spinner",
+        description: "Displays an animated spinning icon to indicate loading state.",
+        demo: (
+            <div className="flex items-center justify-center gap-6 w-full">
+                <div className="spinner spinner-sm"></div>
+                <div className="spinner"></div>
+                <div className="spinner spinner-lg"></div>
+            </div>
+        ),
+        code: `<div class="spinner spinner-sm"></div>
+<div class="spinner"></div>
+<div class="spinner spinner-lg"></div>`
     },
     {
         id: "typography",

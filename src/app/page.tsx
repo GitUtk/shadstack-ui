@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Moon, Sun, Menu, X, Copy, Check } from "lucide-react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { componentsData } from "./components-data";
 
-const CodeBlock = ({ code }: { code: string }) => {
+const CodeBlock = ({ code, theme }: { code: string; theme: string }) => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -14,19 +16,34 @@ const CodeBlock = ({ code }: { code: string }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const isDark = theme === "dark";
+  const bgClass = isDark ? "bg-[#161616]" : "bg-zinc-50";
+  const borderClass = isDark ? "border-[rgba(255,255,255,0.1)]" : "border-zinc-200";
+  const headerBgClass = isDark ? "bg-[#161616]" : "bg-white";
+  const textClass = isDark ? "text-[#A1A1AA]" : "text-zinc-500";
+  const textHoverClass = isDark ? "hover:text-[#FAFAFA]" : "hover:text-zinc-900";
+
   return (
-    <div className="relative flex flex-col w-full h-full border border-[var(--border-color)] rounded-lg bg-[var(--bg-color)] overflow-hidden m-0">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--border-color)] bg-[var(--muted)]">
-        <span className="text-[11px] text-[var(--text-muted)] font-mono uppercase tracking-wider font-semibold">HTML Usage</span>
-        <button onClick={copyToClipboard} className="text-xs flex items-center gap-1.5 text-[var(--text-muted)] hover:text-[var(--text-color)] transition-colors p-1">
+    <div className={`relative flex flex-col w-full h-full border ${borderClass} rounded-lg ${bgClass} overflow-hidden m-0 shadow-sm transition-colors`}>
+      <div className={`flex items-center justify-between px-4 py-2 border-b ${borderClass} ${headerBgClass} transition-colors`}>
+        <span className={`text-[11px] ${textClass} font-mono uppercase tracking-wider font-semibold transition-colors`}>HTML Usage</span>
+        <button onClick={copyToClipboard} className={`text-xs flex items-center gap-1.5 ${textClass} ${textHoverClass} transition-colors p-1`}>
           {copied ? <Check size={14} /> : <Copy size={14} />}
           {copied ? "Copied" : "Copy Code"}
         </button>
       </div>
-      <div className="p-4 overflow-x-auto code-scroll-fix flex-1 flex items-center bg-[var(--bg-color)]">
-        <pre className="text-xs text-[var(--text-color)] m-0 leading-relaxed font-mono w-full">
+      <div className={`flex-1 flex flex-col items-stretch ${bgClass} min-w-0 w-full transition-colors`}>
+        <SyntaxHighlighter
+          language="html"
+          style={isDark ? vscDarkPlus : oneLight}
+          showLineNumbers={true}
+          wrapLines={true}
+          wrapLongLines={true}
+          customStyle={{ margin: 0, padding: '1rem', flex: 1, fontSize: '13px', backgroundColor: 'transparent', wordBreak: 'break-word' }}
+          lineNumberStyle={{ minWidth: '2.5em', paddingRight: '1em', color: isDark ? '#858585' : '#a1a1aa', textAlign: 'right' }}
+        >
           {code}
-        </pre>
+        </SyntaxHighlighter>
       </div>
     </div>
   );
@@ -110,26 +127,39 @@ export default function Home() {
           onClick={() => setSidebarOpen(false)}
         ></div>
 
-        <aside className={`fixed top-14 left-0 z-40 h-[calc(100vh-3.5rem)] w-64 bg-[var(--bg-color)] border-r border-[var(--border-color)] transition-transform duration-200 ease-in-out flex flex-col ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
-          <div className="flex-1 overflow-y-auto hide-scrollbar py-4 px-4 flex flex-col gap-1">
-            <div className="flex flex-row justify-between items-center px-2 mt-2 mb-2">
-              <div className="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider">Overview</div>
-              <button className="md:hidden p-1 -mr-1 text-[var(--text-muted)] hover:text-[var(--text-color)]" onClick={() => setSidebarOpen(false)}>
-                <X size={16} />
-              </button>
+        <aside className={`sidebar !min-h-full fixed top-14 left-0 z-40 h-[calc(100vh-3.5rem)] transition-transform duration-200 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+          <div className="sidebar-content py-4">
+            <div className="sidebar-group">
+              <div className="sidebar-group-label flex justify-between w-full uppercase tracking-wider">
+                <span>Overview</span>
+                <button className="md:hidden p-1 -mr-2 text-[var(--text-muted)] hover:text-[var(--text-color)]" onClick={() => setSidebarOpen(false)}>
+                  <X size={16} />
+                </button>
+              </div>
+              <ul className="sidebar-menu mt-1">
+                <li className="sidebar-menu-item">
+                  <button onClick={() => scrollToComponent("installation")} className="sidebar-menu-button">
+                    <span className="font-medium">Installation</span>
+                  </button>
+                </li>
+              </ul>
             </div>
-            <button onClick={() => scrollToComponent("installation")} className="text-left w-full px-3 py-2 text-sm rounded-md hover:bg-[var(--muted)] hover:text-[var(--text-color)] text-[var(--text-muted)] transition-colors flex font-medium">Installation</button>
 
-            <div className="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2 px-2 mt-4">Components</div>
-            {componentsData.map(comp => (
-              <button
-                key={comp.id}
-                onClick={() => scrollToComponent(comp.id)}
-                className="text-left w-full px-3 py-2 text-sm rounded-md hover:bg-[var(--muted)] hover:text-[var(--text-color)] text-[var(--text-muted)] transition-colors flex"
-              >
-                {comp.label}
-              </button>
-            ))}
+            <div className="sidebar-group mt-2">
+              <div className="sidebar-group-label uppercase tracking-wider">Components</div>
+              <ul className="sidebar-menu mt-1">
+                {componentsData.map(comp => (
+                  <li className="sidebar-menu-item" key={comp.id}>
+                    <button
+                      onClick={() => scrollToComponent(comp.id)}
+                      className="sidebar-menu-button text-[var(--text-muted)] hover:text-[var(--text-color)]"
+                    >
+                      <span>{comp.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </aside>
 
@@ -143,8 +173,9 @@ export default function Home() {
                 Beautifully designed components built with pure HTML, CSS, and Vanilla JS.
                 Accessible. Customizable. Zero build tools.
               </p>
+              <br />
             </section>
-
+            <br />
             <section id="installation" className="mb-14 scroll-mt-24">
               <div className="mb-6">
                 <h2 className="font-semibold tracking-tight text-2xl mb-2">Installation</h2>
@@ -152,14 +183,16 @@ export default function Home() {
               </div>
 
               <div className="grid lg:grid-cols-2 gap-4">
-                <CodeBlock code={`<!-- CSS -->
-<link href="/ui.min.css" rel="stylesheet">
+                <div className="min-w-0 w-full relative">
+                  <CodeBlock code={`<!-- CSS -->
+<link href="https://raw.githubusercontent.com/GitUtk/shadstack-ui/refs/heads/main/public/ui.min.css" rel="stylesheet">
 
 <!-- JS -->
-<script src="/ui.min.js"></script>`} />
+<script src="https://raw.githubusercontent.com/GitUtk/shadstack-ui/refs/heads/main/public/ui.min.js"></script>`} theme={theme} />
+                </div>
 
-                <div className="flex items-center p-6 text-[var(--text-muted)] text-sm border border-[var(--border-color)] rounded-lg bg-[var(--muted)] min-h-[150px]">
-                  Note: In this local demo, the assets are hosted at the root paths via Next.js public directory. For production, replace paths with your CDN links.
+                <div className="flex items-center p-6 text-[var(--text-muted)] text-sm border border-[var(--border-color)] rounded-lg bg-[var(--muted)] min-h-[150px] min-w-0">
+                  Note: The CDN links fetch the latest customized UI CSS and Javascript files directly from this repository's main branch.
                 </div>
               </div>
             </section>
@@ -177,11 +210,11 @@ export default function Home() {
                     <p className="text-sm text-[var(--text-muted)] mt-1">{comp.description}</p>
                   </div>
                   <div className="grid lg:grid-cols-2 gap-4">
-                    <div className="card shadow-sm border-[var(--border-color)] flex items-center justify-center p-6 bg-[var(--bg-color)] rounded-lg min-h-[220px]">
+                    <div className="card shadow-sm border-[var(--border-color)] flex items-center justify-center p-6 bg-[var(--bg-color)] rounded-lg min-h-[220px] min-w-0 w-full overflow-hidden relative">
                       {comp.demo}
                     </div>
-                    <div className="min-h-[220px]">
-                      <CodeBlock code={comp.code} />
+                    <div className="min-h-[220px] min-w-0 w-full relative">
+                      <CodeBlock code={comp.code} theme={theme} />
                     </div>
                   </div>
                 </section>
@@ -189,8 +222,9 @@ export default function Home() {
             </div>
 
             <footer className="mt-16 pt-8 border-t border-[var(--border-color)]">
+
               <p className="text-sm text-[var(--text-muted)] text-center md:text-left">
-                Built by Antigravity. Source available on GitHub.
+                <br />  Source available on GitHub.
               </p>
             </footer>
           </main>
