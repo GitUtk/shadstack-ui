@@ -17,8 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="stylesheet" href="/ui.min.css" />
-        <script defer src="/ui.min.js"></script>
+        <link rel="stylesheet" href="./ui.min.css" />
+        <script defer src="./ui.min.js"></script>
       </head>
       <body className={`${inter.className} min-h-screen bg-[var(--bg-color)] text-[var(--text-color)]`}>
         {children}
