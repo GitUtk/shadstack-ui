@@ -185,10 +185,10 @@ export default function Home() {
               <div className="grid lg:grid-cols-2 gap-4">
                 <div className="min-w-0 w-full relative">
                   <CodeBlock code={`<!-- CSS -->
-<link href="https://raw.githubusercontent.com/GitUtk/shadstack-ui/refs/heads/main/public/ui.min.css" rel="stylesheet">
+<link href="https://gitutk.github.io/shadstack-ui/ui.min.css" rel="stylesheet">
 
 <!-- JS -->
-<script src="https://raw.githubusercontent.com/GitUtk/shadstack-ui/refs/heads/main/public/ui.min.js"></script>`} theme={theme} />
+<script src="https://gitutk.github.io/shadstack-ui/ui.min.js"></script>`} theme={theme} />
                 </div>
 
                 <div className="flex items-center p-6 text-[var(--text-muted)] text-sm border border-[var(--border-color)] rounded-lg bg-[var(--muted)] min-h-[150px] min-w-0">
